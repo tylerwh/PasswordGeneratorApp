@@ -47,7 +47,7 @@ namespace PasswordGeneratorApp.Controllers
         // GET: Passwords/Create
         public IActionResult Create()
         {
-            ViewData["PersonId"] = new SelectList(_context.Persons, "PersonId", "PersonId");
+            ViewData["PersonId"] = new SelectList(_context.Persons, "PersonId", "FullName");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace PasswordGeneratorApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonId"] = new SelectList(_context.Persons, "PersonId", "PersonId", password.PersonId);
+            ViewData["PersonId"] = new SelectList(_context.Persons, "PersonId", "FullName", password.PersonId);
             return View(password);
         }
 
@@ -81,7 +81,7 @@ namespace PasswordGeneratorApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["PersonId"] = new SelectList(_context.Persons, "PersonId", "PersonId", password.PersonId);
+            ViewData["PersonId"] = new SelectList(_context.Persons, "PersonId", "FullName", password.PersonId);
             return View(password);
         }
 
