@@ -1,0 +1,54 @@
+﻿@model PasswordGeneratorApp.Models.Password
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Password</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SiteURL" class="control-label"></label>
+                <input asp-for="SiteURL" class="form-control" />
+                <span asp-validation-for="SiteURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SitePassword" class="control-label"></label>
+                <input asp-for="SitePassword" class="form-control" />
+                <span asp-validation-for="SitePassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDate" class="control-label"></label>
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+            <!--
+    <div class="form-group">
+        <label asp-for="ExpireDate" class="control-label"></label>
+        <input asp-for="ExpireDate" class="form-control" />
+        <span asp-validation-for="ExpireDate" class="text-danger"></span>
+    </div>
+        -->
+            <div class="form-group">
+                <label asp-for="PersonId" class="control-label"></label>
+                <select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
