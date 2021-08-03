@@ -6,6 +6,7 @@ namespace PasswordGeneratorApp.Models
     {
         public long PasswordId { get; set; }
         public string SiteURL { get; set; }
+        public string SitePassword { get; set; }
         public DateTime CreateDate { get; set; }
         private DateTime expireDate { get; set; }
         public DateTime ExpireDate 

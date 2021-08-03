@@ -18,7 +18,7 @@ namespace PasswordGeneratorApp.Models
                 new Person { PersonId = 1, FirstName = "Tyler", LastName = "Hochstetler" }
             );
             modelBuilder.Entity<Password>().HasData(
-                new Password { PasswordId = 1, SiteURL = "www.gmail.com", CreateDate = DateTime.Parse("08/01/2021"), PersonId = 1}
+                new Password { PasswordId = 1, SiteURL = "www.gmail.com", SitePassword = "t3stPassword!", CreateDate = DateTime.Parse("08/01/2021"), PersonId = 1}
             );
         }
     

@@ -56,7 +56,7 @@ namespace PasswordGeneratorApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PasswordId,SiteURL,CreateDate,ExpireDate,PersonId")] Password password)
+        public async Task<IActionResult> Create([Bind("PasswordId,SiteURL,SitePassword,CreateDate,PersonId")] Password password)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace PasswordGeneratorApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("PasswordId,SiteURL,CreateDate,ExpireDate,PersonId")] Password password)
+        public async Task<IActionResult> Edit(long id, [Bind("PasswordId,SiteURL,SitePassword,CreateDate,PersonId")] Password password)
         {
             if (id != password.PasswordId)
             {

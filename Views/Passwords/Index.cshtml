@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.SiteURL)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.SitePassword)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CreateDate)
             </th>
             <th>
@@ -31,16 +34,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SiteURL)
+                <a href="@Html.DisplayFor(modelItem => item.SiteURL)" target="_blank">
+                    @Html.DisplayFor(modelItem => item.SiteURL)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.SitePassword)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ExpireDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Person.PersonId)
+                @Html.DisplayFor(modelItem => item.Person.LastName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PasswordId">Edit</a> |
