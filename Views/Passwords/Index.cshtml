@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    string Overdue(Password password) => password.ExpireDate <= DateTime.Now ? "bg-warning" : "";
 }
 
 <h1>Index</h1>
@@ -32,6 +33,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+    string overdue = Overdue(item);
         <tr>
             <td>
                 <a href="@Html.DisplayFor(modelItem => item.SiteURL)" target="_blank">
@@ -44,7 +46,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SitePassword)
             </td>
-            <td>
+            <td class="@overdue">
                 @Html.DisplayFor(modelItem => item.ExpireDate)
             </td>
             <td>
