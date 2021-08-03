@@ -1,0 +1,64 @@
+﻿@model PasswordGeneratorApp.Models.PasswordGenerator
+
+@{
+    
+}
+
+<h1>Generate</h1>
+
+<h4>Password</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="post" class="form-horizontal">
+            <div class="row">
+                <label asp-for="PasswordSize" class="control-label col-sm-6"></label>
+                <input asp-for="PasswordSize" class="form-control col-sm-6" />
+                <span asp-validation-for="PasswordSize" class="text-danger col"></span>
+            </div>
+            <div class="row">
+                <p class="col-sm-6 mr-3">Use the following:</p>
+            </div>
+            <div class="row">
+                <label asp-for="UseLower" class="control-label col-sm-6 mr-3"></label>
+                @Html.CheckBoxFor(model => model.UseLower)
+            </div>
+            <div class="row">
+                <label asp-for="UseUpper" class="control-label col-sm-6 mr-3"></label>
+                @Html.CheckBoxFor(model => model.UseUpper)
+            </div>
+            <div class="row">
+                <label asp-for="UseNumbers" class="control-label col-sm-6 mr-3"></label>
+                @Html.CheckBoxFor(model => model.UseNumbers)
+            </div>
+            <div class="row">
+                <label asp-for="UseSpecialChars" class="control-label col-sm-6 mr-3"></label>
+                @Html.CheckBoxFor(model => model.UseSpecialChars)
+            </div>
+            <div class="row">
+                <label asp-for="ExcludedChars" class="control-label col-sm-6">
+                    Excluded Special Characters:
+                </label>
+                <input asp-for="ExcludedChars" class="form-control col-sm-6" />
+                <span asp-validation-for="ExcludedChars" class="text-danger col"></span>
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-3">Password:</label>
+                <input value="@ViewBag.Password" readonly class="form-control col-sm-9" />
+                <span value="@ViewBag.NoSelectionFound" class="text-danger col">@ViewBag.NoSelectionFound</span>
+            </div>
+            <div class="row">
+                <div class="col offset-sm-3 pl-0 mt-2">
+                    <button type="submit" class="btn btn-primary">Generate</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -13,30 +13,51 @@ namespace PasswordGeneratorApp.Models
         private string _UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private string _NUMBERS = "0123456789";
         private string _SPECIALCHARS = "@%+!#$^?:.(){}[]~-_`";
+        [Required(ErrorMessage = "Must enter number between 6 and 15.")]
         [Range(6,15)]
+        [Display(Name = "Password Size")]
         public int PasswordSize { get; set; }
+        [Display(Name = "Lower Case")]
         public bool UseLower { get; set; }
+        [Display(Name = "Upper Case")]
         public bool UseUpper { get; set; }
+        [Display(Name = "Numbers")]
         public bool UseNumbers { get; set; }
+        [Display(Name = "Special Characters (@%+!#$^?:.(){}[]~-_`)")]
         public bool UseSpecialChars { get; set; }
-        public string ExcludedChars { get; set; }
+        private string _excludedChars { get; set; }
+        public string ExcludedChars
+        {
+            get => _excludedChars;
+            set 
+            {
+                if (UseSpecialChars)
+                {
+                    _excludedChars = value;
+                }
+                else
+                {
+                    _excludedChars = "";
+                }
+            }
+        }
         public string GeneratedPassword =>
-            GeneratePassword(PasswordSize, UseLower, UseUpper, UseNumbers, UseSpecialChars, ExcludedChars);
+            GeneratePassword(PasswordSize, UseLower, UseUpper, UseNumbers, UseSpecialChars, _excludedChars);
 
-        private string GeneratePassword(int passwordSize, bool useLower, bool useUpper, bool useNumbers, bool useSpecialChars, string excludedChars)
+        private string GeneratePassword(int passwordSize, bool useLower, bool useUpper, bool useNumbers, bool useSpecialChars, string excludedChars = "")
         {
             char[] _password = new char[passwordSize];
             string charSet = ""; // Initialise to blank
             System.Random _random = new Random();
             int counter = 0;
 
-            // Build up the character set to choose from
+            
             if (useLower)
             {
                 _password[counter] = _LOWERCASE[_random.Next(_LOWERCASE.Length - 1)];
                 counter++;
                 charSet += _LOWERCASE;
-                // Console.WriteLine("charSet in useLower: {0}", charSet);
+                
             }
 
             if (useUpper)
@@ -44,7 +65,7 @@ namespace PasswordGeneratorApp.Models
                 _password[counter] = _UPPERCASE[_random.Next(_UPPERCASE.Length - 1)];
                 counter++;
                 charSet += _UPPERCASE;
-                // Console.WriteLine("charSet in useUpper: {0}", charSet);
+                
             }
 
             if (useNumbers)
@@ -52,42 +73,53 @@ namespace PasswordGeneratorApp.Models
                 _password[counter] = _NUMBERS[_random.Next(_NUMBERS.Length - 1)];
                 counter++;
                 charSet += _NUMBERS;
-                // Console.WriteLine("charSet in useNumbers: {0}", charSet);
+                
             }
 
             if (useSpecialChars)
             {
                 var specialChars = new StringBuilder(_SPECIALCHARS);
                 string exclude = excludedChars;
-                char[] arr = exclude.ToCharArray();
+                
 
-                // Console.WriteLine("specialChars initial: {0}", specialChars);
-
-                for (int i = 0; i < specialChars.Length; i++)
+                if(!string.IsNullOrEmpty(exclude))
                 {
-                    for (int j = 0; j < arr.Length; j++)
+                    // if characters are excluded
+                    char[] arr = exclude.ToCharArray();
+
+                    for (int i = 0; i < specialChars.Length; i++)
                     {
-                        if (specialChars[i] == arr[j])
+                        for (int j = 0; j < arr.Length; j++)
                         {
-                            specialChars.Remove(i, 1);
+                            if (specialChars[i] == arr[j])
+                            {
+                                specialChars.Remove(i, 1);
+                            }
                         }
                     }
                 }
 
-                // Console.WriteLine("specialChars final: {0}", specialChars);
-
                 _password[counter] = specialChars[_random.Next(specialChars.Length - 1)];
                 counter++;
                 charSet += specialChars;
-                // Console.WriteLine("charSet in useSpecial: {0}", charSet);
+                
             }
 
-            for (int i = counter; i < passwordSize; i++)
+            if (!string.IsNullOrEmpty(charSet))
             {
-                _password[i] = charSet[_random.Next(charSet.Length - 1)];
+                for (int i = counter; i < passwordSize; i++)
+                {
+                    _password[i] = charSet[_random.Next(charSet.Length - 1)];
+                }
+
+                return String.Join(null, _password);
+            }
+            else
+            {
+                return charSet;
             }
 
-            return String.Join(null, _password);
+            
         }
     }
 }
